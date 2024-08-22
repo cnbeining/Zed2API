@@ -3,7 +3,7 @@ from flask import Flask, request, Response
 import requests
 import json
 import random
-from helper import create_jwt, generate_random_tuple
+from helper import create_jwt, get_github_username_zed_userid_list
 
 app = Flask(__name__)
 
@@ -46,8 +46,7 @@ async def chat():
         }
     }
 
-    # github_username, zed_user_id = random.choice(github_username_zed_userid_list)
-    github_username, zed_user_id = generate_random_tuple()
+    github_username, zed_user_id = get_github_username_zed_userid_list()
     jwt = create_jwt(github_username, zed_user_id)
 
     headers = {

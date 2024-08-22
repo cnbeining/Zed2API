@@ -17,7 +17,11 @@ Zed2API is a Flask-based API that serves as a proxy for the Anthropic Claude AI 
    cd Zed2API
    ```
 
-2. Build and run the Docker container:
+2. Add GitHub username and Zed User ID in `gh_username_zed_userid.txt`.
+
+Look for a request like `https://zed.dev/api/auth/session` once logged in.
+
+3. Build and run the Docker container:
    ```
    docker build -t zed2api .
    docker run -p 8000:8000 zed2api
@@ -28,9 +32,7 @@ Zed2API is a Flask-based API that serves as a proxy for the Anthropic Claude AI 
 
 ## Usage
 
-To use the API, send a POST request to the `/chat` endpoint with your message payload. For example:
-
-3. The API will return a streaming response with the AI's reply.
+To use the API, send a POST request to the `/chat/completions` endpoint with your message payload. The API will return a streaming response with the AI's reply.
 
 ## Environment Variables
 
@@ -42,4 +44,4 @@ This API uses random GitHub usernames and Zed user IDs for authentication. In a 
 
 ## License
 
-[Your chosen license]
+GPLv3

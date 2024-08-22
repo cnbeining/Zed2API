@@ -4,27 +4,45 @@ from datetime import datetime, timedelta
 import random
 import string
 
-github_username_zed_userid_list = [
-    ("aaa", 123123),
-]
 
-
-def generate_random_tuple():
+def get_github_username_zed_userid_list():
     """
-    Generate a random tuple containing a string and an integer.
+    Read GitHub usernames and Zed user IDs from gh_username_zed_userid.txt file.
 
     Returns:
-        tuple: A tuple containing:
-            - str: A random string of length 6-12 consisting of ASCII letters and digits.
-            - int: A random 6-digit integer between 100000 and 999999.
+        list: A list of tuples, each containing a GitHub username (str) and a Zed user ID (int).
     """
-    # Generate a random string of length 6-12
-    random_string = ''.join(random.choices(string.ascii_letters + string.digits, k=random.randint(6, 12)))
+    result = []
+    try:
+        with open('gh_username_zed_userid.txt', 'r') as file:
+            for line in file:
+                username, user_id = line.strip().split(',')
+                result.append((username, user_id))
+    except FileNotFoundError:
+        print("Warning: gh_username_zed_userid.txt file not found. Using default values.")
+        result = [("aaa", "123123")]
+    except ValueError:
+        print("Warning: Invalid format in gh_username_zed_userid.txt. Using default values.")
+        result = [("aaa", "123123")]
     
-    # Generate a random 6-digit integer
-    random_int = random.randint(100000, 999999)
+    return result
+
+# def generate_random_tuple():
+#     """
+#     Generate a random tuple containing a string and an integer.
+
+#     Returns:
+#         tuple: A tuple containing:
+#             - str: A random string of length 6-12 consisting of ASCII letters and digits.
+#             - int: A random 6-digit integer between 100000 and 999999.
+#     """
+#     # Generate a random string of length 6-12
+#     random_string = ''.join(random.choices(string.ascii_letters + string.digits, k=random.randint(6, 12)))
     
-    return (random_string, random_int)
+#     # Generate a random 6-digit integer
+#     random_int = random.randint(100000, 999999)
+    
+#     return (random_string, random_int)
 
 
 def create_jwt(github_user_login: str, user_id: int) -> str:
